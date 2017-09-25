@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Springboard</title>
+    <title>springboard</title>
 </head>
 <body>
     <pre>springboard</pre>
@@ -30,23 +30,40 @@
         element.xy = (x, y) => {
             element.style.left = px(x);
             element.style.top = px(y);
-        }
+        };
 
-        element.onmousedown = ({ clientX, clientY }) => {
-            const { offsetLeft, offsetTop } = element;
+        element.dragAction = () => {
+            const { offsetTop, offsetLeft } = element;
+            element.style.backgroundColor = rgb(0, offsetTop % 256, offsetLeft % 256);
 
-            element.dragOffset = {
-                x: clientX - offsetLeft,
-                y: clientY - offsetTop,
-            };
+            element.style.zIndex = offsetTop;
+        };
 
-            dragGroup.push(element);
+        element.onmousedown = (event) => {
+            // Left button
+            if (event.button === 0) {
+                const { clientX, clientY } = event;
+                const { offsetLeft, offsetTop } = element;
+
+                element.dragOffset = {
+                    x: clientX - offsetLeft,
+                    y: clientY - offsetTop,
+                };
+
+                dragGroup.push(element);
+            }
+            // Right button
+            else if (event.button === 2) {
+                document.body.removeChild(element);
+            }
+
         };
 
         document.body.appendChild(element);
+        element.dragAction();
 
-        return element
-    }
+        return element;
+    };
 
     document.onmousemove = ({ clientX, clientY }) => {
         if (dragGroup.length) {
@@ -54,22 +71,29 @@
                 const { x = 0, y = 0 } = element.dragOffset;
 
                 element.xy(clientX - x, clientY - y);
-            })
 
-        }
-    }
-
-    document.onmouseup = ({ clientX, clientY }) => {
-        if (dragGroup.length) {
-            dragGroup.length = 0;
-        }
-        else {
-            lastElement = createElement({
-                top: px(clientY),
-                left: px(clientX),
+                if (element.dragAction) {
+                    element.dragAction();
+                }
             });
         }
+    };
 
-    }
+    document.onmouseup = ({ clientX, clientY, button }) => {
+        // Left button
+        if (button === 0) {
+            if (dragGroup.length) {
+                dragGroup.length = 0;
+            }
+            else {
+                lastElement = createElement({
+                    top: px(clientY),
+                    left: px(clientX),
+                });
+            }
+        }
+    };
+
+    document.oncontextmenu = () => false;
 </script>
 </html>
