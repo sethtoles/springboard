@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Springboard</title>
+</head>
+<body>
+    <pre>springboard</pre>
+</body>
+<script type="text/javascript">
+    // util
+    const px = (size) => `${size}px`;
+    const rgb = (r, g = r, b = r) => `rgb(${r},${g},${b})`;
+
+    const dragGroup = [];
+
+    let lastElement;
+
+    const createElement = (styleOptions) => {
+        const style = {
+            width: px(100),
+            height: px(100),
+            backgroundColor: rgb(0),
+            position: 'fixed',
+            ...styleOptions,
+        };
+
+        const element = document.createElement('div');
+        Object.assign(element.style, style);
+
+        element.xy = (x, y) => {
+            element.style.left = px(x);
+            element.style.top = px(y);
+        }
+
+        element.onmousedown = ({ clientX, clientY }) => {
+            const { offsetLeft, offsetTop } = element;
+
+            element.dragOffset = {
+                x: clientX - offsetLeft,
+                y: clientY - offsetTop,
+            };
+
+            dragGroup.push(element);
+        };
+
+        document.body.appendChild(element);
+
+        return element
+    }
+
+    document.onmousemove = ({ clientX, clientY }) => {
+        if (dragGroup.length) {
+            dragGroup.map((element) => {
+                const { x = 0, y = 0 } = element.dragOffset;
+
+                element.xy(clientX - x, clientY - y);
+            })
+
+        }
+    }
+
+    document.onmouseup = ({ clientX, clientY }) => {
+        if (dragGroup.length) {
+            dragGroup.length = 0;
+        }
+        else {
+            lastElement = createElement({
+                top: px(clientY),
+                left: px(clientX),
+            });
+        }
+
+    }
+</script>
+</html>
