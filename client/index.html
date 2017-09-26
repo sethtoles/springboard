@@ -6,6 +6,7 @@
 <body>
     <pre>springboard</pre>
 </body>
+<script type="text/javascript" src="gamePiece.js"></script>
 <script type="text/javascript">
     // util
     const px = (size) => `${size}px`;
@@ -14,56 +15,6 @@
     const dragGroup = [];
 
     let lastElement;
-
-    const createElement = (styleOptions) => {
-        const style = {
-            width: px(100),
-            height: px(100),
-            backgroundColor: rgb(0),
-            position: 'fixed',
-            ...styleOptions,
-        };
-
-        const element = document.createElement('div');
-        Object.assign(element.style, style);
-
-        element.xy = (x, y) => {
-            element.style.left = px(x);
-            element.style.top = px(y);
-        };
-
-        element.dragAction = () => {
-            const { offsetTop, offsetLeft } = element;
-            element.style.backgroundColor = rgb(0, offsetTop % 256, offsetLeft % 256);
-
-            element.style.zIndex = offsetTop;
-        };
-
-        element.onmousedown = (event) => {
-            // Left button
-            if (event.button === 0) {
-                const { clientX, clientY } = event;
-                const { offsetLeft, offsetTop } = element;
-
-                element.dragOffset = {
-                    x: clientX - offsetLeft,
-                    y: clientY - offsetTop,
-                };
-
-                dragGroup.push(element);
-            }
-            // Right button
-            else if (event.button === 2) {
-                document.body.removeChild(element);
-            }
-
-        };
-
-        document.body.appendChild(element);
-        element.dragAction();
-
-        return element;
-    };
 
     document.onmousemove = ({ clientX, clientY }) => {
         if (dragGroup.length) {
