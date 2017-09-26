@@ -11,10 +11,31 @@
     // util
     const px = (size) => `${size}px`;
     const rgb = (r, g = r, b = r) => `rgb(${r},${g},${b})`;
+    const border = (size, color) => `${px(size)} solid ${color}`;
 
     const dragGroup = [];
 
     let lastElement;
+
+    BOARD_TILE_DIM = 80;
+    const BOARD_TILE_STYLE = {
+        backgroundColor: rgb(255),
+        border: border(2, rgb(0)),
+        width: px(BOARD_TILE_DIM),
+        height: px(BOARD_TILE_DIM),
+    }
+
+    Array(15).fill().map((row, rowIndex) => {
+        Array(20).fill().map((column, columnIndex) => {
+            createElement({
+                style: {
+                    top: px(rowIndex * BOARD_TILE_DIM),
+                    left: px(columnIndex * BOARD_TILE_DIM),
+                    ...BOARD_TILE_STYLE,
+                },
+            });
+        });
+    });
 
     document.onmousemove = ({ clientX, clientY }) => {
         if (dragGroup.length) {
@@ -38,8 +59,11 @@
             }
             else {
                 lastElement = createElement({
-                    top: px(clientY),
-                    left: px(clientX),
+                    draggable: true,
+                    style: {
+                        top: px(clientY),
+                        left: px(clientX),
+                    },
                 });
             }
         }
