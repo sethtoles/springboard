@@ -41,8 +41,13 @@
         if (dragGroup.length) {
             dragGroup.map((element) => {
                 const { x = 0, y = 0 } = element.dragOffset;
+                const actualX = clientX - x;
+                const actualY = clientY - y;
 
-                element.xy(clientX - x, clientY - y);
+                element.xy(
+                    Math.round(actualX / BOARD_TILE_DIM) * BOARD_TILE_DIM,
+                    Math.round(actualY / BOARD_TILE_DIM) * BOARD_TILE_DIM,
+                );
 
                 if (element.dragAction) {
                     element.dragAction();

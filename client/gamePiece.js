@@ -45,6 +45,7 @@
 
         if (draggable) {
             element.dragAction = dragAction;
+            style.cursor = 'move';
         }
 
         // Style assignment
