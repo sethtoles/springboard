@@ -50,8 +50,8 @@
 
         // Style assignment
         Object.assign(element.style, {
-            width: px(100),
-            height: px(100),
+            width: px(BOARD_TILE_DIM),
+            height: px(BOARD_TILE_DIM),
             backgroundColor: rgb(0),
             position: 'fixed',
             ...style,
