@@ -58,11 +58,19 @@
         delete held[event.which];
     }
 
+    function clearHeld() {
+        for (const key in held) {
+            delete held[key];
+        }
+    }
+
     global.addListeners = () => {
         document.addEventListener('keydown', handleKeyDown);
         document.addEventListener('keyup', handleKeyUp);
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
+        document.addEventListener('focus', clearHeld);
+        document.addEventListener('blur', clearHeld);
         document.addEventListener('contextmenu', () => false);
     };
 })(window);
