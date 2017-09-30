@@ -2,7 +2,7 @@
     function createTile(row, column) {
         const { width, height } = this.tileStyle;
 
-        return createElement({
+        return createBaseElement({
             style: {
                 ...this.tileStyle,
                 width: px(width),

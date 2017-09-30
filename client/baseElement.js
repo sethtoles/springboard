@@ -33,9 +33,14 @@
 
     };
 
-    global.createElement = (options = {}) => {
-        const { style = {}, draggable = false } = options;
-        const element = document.createElement('div');
+    global.createBaseElement = (options = {}) => {
+        const {
+            parent = document,
+            style = {},
+            draggable = false,
+        } = options;
+
+        const element = parent.createElement('div');
 
         // Method attachment
         Object.assign(element, {

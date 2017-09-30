@@ -43,7 +43,7 @@
                 dragGroup.length = 0;
             }
             else {
-                createElement({
+                createBaseElement({
                     draggable: true,
                     style: {
                         top: px(clientY),
