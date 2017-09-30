@@ -4,7 +4,7 @@
         this.style.top = px(y);
     }
 
-    function dragAction() {
+    function defaultDragAction() {
         const { offsetTop, offsetLeft } = this;
 
         this.style.backgroundColor = rgb(0, offsetTop % 256, offsetLeft % 256);
@@ -35,12 +35,13 @@
 
     global.createBaseElement = (options = {}) => {
         const {
-            parent = document,
+            parent = document.body,
             style = {},
             draggable = false,
+            dragAction = defaultDragAction,
         } = options;
 
-        const element = parent.createElement('div');
+        const element = document.createElement('div');
 
         // Method attachment
         Object.assign(element, {
@@ -63,7 +64,7 @@
             ...style,
         });
 
-        document.body.appendChild(element);
+        parent.appendChild(element);
 
         return element;
     };

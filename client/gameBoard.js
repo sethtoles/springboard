@@ -3,6 +3,7 @@
         const { width, height } = this.tileStyle;
 
         return createBaseElement({
+            parent: this.root,
             style: {
                 ...this.tileStyle,
                 width: px(width),
@@ -20,6 +21,7 @@
                 .map((column, columnIndex) => this.createTile(this.rows, columnIndex))
             )
         ;
+
         this.rows++;
     }
 
@@ -32,17 +34,46 @@
                 this.createTile(rowIndex, this.columns) // Element to add
             );
         }
+
         this.columns++;
+    }
+
+    function createHandle({ root, columns, tileStyle }) {
+        const { top, left } = root.style;
+        const { width, height } = tileStyle;
+
+        const handle = createBaseElement({
+            draggable: true,
+            style: {
+                top,
+                left: px(parseInt(left) + (width * columns)),
+                width: px(width),
+                height: px(height),
+                color: rgb(255),
+            },
+            dragAction: function() {
+                root.xy(
+                    parseInt(this.style.left) - (width * columns),
+                    parseInt(this.style.top)
+                );
+            },
+        });
+
+        handle.classList.add('fa', 'fa-arrows', 'fa-5x');
+
+        return handle;
     }
 
     global.createBoard = (options = {}) => {
         const {
             rows = BOARD_ROWS,
             columns = BOARD_COLUMNS,
+            top = 0,
+            left = 0,
             tileWidth = BOARD_TILE_DIM,
             tileHeight = BOARD_TILE_DIM,
             tileColor = rgb(255),
-            tileBorder = border(2, rgb(0)),
+            tileBorder = border(1, rgb(0)),
         } = options;
 
         const tileStyle = {
@@ -52,7 +83,17 @@
             border: tileBorder,
         };
 
+        // The board root is used only as a container element for all tiles.
+        // It makes operations like moving the board much simpler.
+        const root = createBaseElement({
+            style: {
+                top: px(top),
+                left: px(left),
+            },
+        });
+
         const board = {
+            root,
             rows,
             columns,
             tileStyle,
@@ -62,6 +103,8 @@
             addRow,
             addColumn,
         };
+
+        createHandle(board);
 
         for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (let columnIndex = 0; columnIndex < columns; columnIndex++) {

@@ -6,7 +6,6 @@ A Platform for Launching a Board Game
 git clone git@github.com:sethtoles/springboard.git
 cd springboard
 npm install
-
 ```
 Then open `springboard/client/index.html` in any browser with modern JavaScript functionality (only tested with Chrome and chrome://flags/#enable-javascript-harmony enabled).
 
