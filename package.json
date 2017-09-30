@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "express": "^4.15.4",
+    "font-awesome": "^4.7.0",
     "mongodb": "^2.2.31"
   }
 }

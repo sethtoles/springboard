@@ -1,7 +1,14 @@
 # springboard
 A Platform for Launching a Board Game
 
-Wanna try it out? Clone or download the project and open `client/index.html` in any browser with modern JavaScript functionality (only tested with Chrome).
+### Wanna try it out?
+```
+git clone git@github.com:sethtoles/springboard.git
+cd springboard
+npm install
+
+```
+Then open `springboard/client/index.html` in any browser with modern JavaScript functionality (only tested with Chrome and chrome://flags/#enable-javascript-harmony enabled).
 
 ## Features
 #### Board
