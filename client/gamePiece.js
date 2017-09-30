@@ -33,7 +33,8 @@
 
     };
 
-    global.createElement = ({ style, draggable }) => {
+    global.createElement = (options = {}) => {
+        const { style = {}, draggable = false } = options;
         const element = document.createElement('div');
 
         // Method attachment
@@ -53,7 +54,7 @@
             width: px(BOARD_TILE_DIM),
             height: px(BOARD_TILE_DIM),
             backgroundColor: rgb(0),
-            position: 'fixed',
+            position: 'absolute',
             ...style,
         });
 
