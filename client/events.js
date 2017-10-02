@@ -29,6 +29,13 @@
                     );
                 }
 
+                element.tethered.map(({ target, offset }) => {
+                    const newX = parseInt(element.style.left);
+                    const newY = parseInt(element.style.top);
+
+                    target.xy(newX - offset.x, newY - offset.y);
+                });
+
                 if (element.dragAction) {
                     element.dragAction();
                 }

@@ -7,18 +7,17 @@ git clone git@github.com:sethtoles/springboard.git
 cd springboard
 npm install
 ```
-Then open `springboard/client/index.html` in any browser with modern JavaScript functionality (only tested with Chrome and chrome://flags/#enable-javascript-harmony enabled).
+Then open `springboard/client/index.html` in any browser with modern JavaScript functionality (only tested in Chrome with chrome://flags/#enable-javascript-harmony enabled).
 
 ## Features
 #### Board
-You get a grid of fixed size. Enjoy it.
+You get a grid of fixed size. Enjoy it. You can drag it around the window with the handle on the right.
 
 #### Game Pieces
-Click anywhere to create a game piece. Click and drag a piece to move it. By default the piece will snap to the board grid, but holding <kbd>alt</kbd> allows you to move the piece freely. Right-click on a piece removes it.
+Click anywhere to create a game piece. Click and drag a piece to move it. By default the piece will snap to a grid, but holding <kbd>alt</kbd> allows you to move the piece freely. Right-click on a piece removes it.
 
 ## Desired Features
 - [ ] Customizable board size
-- [ ] Movable board
 - [ ] Game layers with discrete rules
 - [ ] Configurable dice roll
 - [ ] Card piece type with hidden state

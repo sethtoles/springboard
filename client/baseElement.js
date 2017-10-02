@@ -5,10 +5,7 @@
     }
 
     function defaultDragAction() {
-        const { offsetTop, offsetLeft } = this;
-
-        this.style.backgroundColor = rgb(0, offsetTop % 256, offsetLeft % 256);
-        this.style.zIndex = offsetTop;
+        this.style.zIndex = this.offsetTop;
     }
 
     function onmousedown(event) {
@@ -30,8 +27,36 @@
         else if (event.button === 2) {
             document.body.removeChild(this);
         }
-
     };
+
+    function tether(target) {
+        const targetTop = target.style.top;
+        const targetLeft = target.style.left;
+        const { top, left } = this.style;
+
+        this.tethered.push({
+            target,
+            offset: {
+                x: parseInt(left) - parseInt(targetLeft),
+                y: parseInt(top) - parseInt(targetTop),
+            },
+        });
+
+        // Include tethered relationship mapping on the targer,
+        // so it can easily untether itself at any time
+        target.tetheredTo.push(this);
+    }
+
+    function untether(target) {
+        const tetheredIndex = this.tethered
+            .findIndex((tetheredItem) => (tetheredItem.target === target))
+        ;
+
+        const tetheredToIndex = target.tetheredTo.indexOf(this);
+
+        this.tethered.splice(tetheredIndex, 1);
+        target.tetheredTo.splice(tetheredToIndex, 1);
+    }
 
     global.createBaseElement = (options = {}) => {
         const {
@@ -43,16 +68,20 @@
 
         const element = document.createElement('div');
 
-        // Method attachment
         Object.assign(element, {
-            xy,
             draggable,
+            tethered: [],
+            tetheredTo: [],
+            // Methods
+            xy,
             onmousedown,
+            tether,
+            untether,
         });
 
         if (draggable) {
-            element.dragAction = dragAction;
             style.cursor = 'move';
+            element.dragAction = dragAction;
         }
 
         // Style assignment

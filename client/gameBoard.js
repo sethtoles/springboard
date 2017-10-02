@@ -51,14 +51,9 @@
                 height: px(height),
                 color: rgb(255),
             },
-            dragAction: function() {
-                root.xy(
-                    parseInt(this.style.left) - (width * columns),
-                    parseInt(this.style.top)
-                );
-            },
         });
 
+        handle.tether(root);
         handle.classList.add('fa', 'fa-arrows', 'fa-5x');
 
         return handle;
