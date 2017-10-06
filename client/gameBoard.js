@@ -53,6 +53,8 @@
             },
         });
 
+        makeTethering(handle);
+
         handle.tether(root);
         handle.classList.add('fa', 'fa-arrows', 'fa-5x');
 
