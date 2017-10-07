@@ -1,14 +1,13 @@
 ((global) => {
     function tether(target) {
-        const targetTop = target.style.top;
-        const targetLeft = target.style.left;
-        const { top, left } = this.style;
+        const { x, y } = this.xy();
+        const targetXY = target.xy();
 
         this.tethered.push({
             target,
             offset: {
-                x: parseInt(left) - parseInt(targetLeft),
-                y: parseInt(top) - parseInt(targetTop),
+                x: x - targetXY.x,
+                y: y - targetXY.y,
             },
         });
 

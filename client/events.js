@@ -1,6 +1,7 @@
 ((global) => {
     const KEY = {
         SHIFT: 16,
+        CTRL: 17,
         ALT: 18,
     };
 
@@ -20,14 +21,12 @@
                 const actualX = clientX - x;
                 const actualY = clientY - y;
 
-                if (held[KEY.ALT]) {
-                    element.xy(actualX, actualY);
+                if (dragGroup.snapTo && !held[KEY.CTRL]) {
+                    snapXY = dragGroup.snapTo.xy();
+                    element.xy(snapXY.x, snapXY.y);
                 }
                 else {
-                    element.xy(
-                        Math.round(actualX / BOARD_TILE_DIM) * BOARD_TILE_DIM,
-                        Math.round(actualY / BOARD_TILE_DIM) * BOARD_TILE_DIM,
-                    );
+                    element.xy(actualX, actualY);
                 }
 
                 if (element.dragAction) {
@@ -37,11 +36,16 @@
         }
     }
 
-    function handleClick({ clientX, clientY, button }) {
+    function handleMouseUp({ clientX, clientY, button }) {
         // Left button
         if (button === 0) {
             if (dragGroup.length) {
+                dragGroup.map((element) => {
+                    element.style.pointerEvents = 'initial';
+                });
+
                 dragGroup.length = 0;
+                delete dragGroup.snapTo;
             }
             else {
                 createBaseElement({
@@ -73,7 +77,7 @@
         document.addEventListener('keydown', handleKeyDown);
         document.addEventListener('keyup', handleKeyUp);
         document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('click', handleClick);
+        document.addEventListener('mouseup', handleMouseUp);
         document.addEventListener('focus', clearHeld);
         document.addEventListener('blur', clearHeld);
         document.addEventListener('contextmenu', handleContextMenu);

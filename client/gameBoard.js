@@ -14,6 +14,18 @@
             },
         });
 
+        tile.addEventListener('mouseenter', () => {
+            if (dragGroup.length && dragGroup.indexOf(tile) < 0) {
+                dragGroup.snapTo = tile;
+            }
+        });
+
+        tile.addEventListener('mouseleave', () => {
+            if (dragGroup.snapTo === tile) {
+                delete dragGroup.snapTo;
+            }
+        });
+
         return tile;
     }
 

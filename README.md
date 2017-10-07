@@ -14,7 +14,7 @@ Then open `springboard/client/index.html` in any browser with modern JavaScript 
 You get a grid of fixed size. Enjoy it. You can drag it around the window with the handle on the right.
 
 #### Game Pieces
-Click anywhere to create a game piece. Click and drag a piece to move it. By default the piece will snap to a grid, but holding <kbd>alt</kbd> allows you to move the piece freely. Right-click on a piece removes it.
+Click anywhere to create a game piece. Click and drag a piece to move it. By default the piece will snap to the baord grid, but holding <kbd>ctrl</kbd> allows you to move the piece freely. Right-click on a piece removes it.
 
 ## Desired Features
 - [ ] Customizable board size

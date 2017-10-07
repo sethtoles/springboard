@@ -25,6 +25,8 @@
                 y: clientY - offsetTop,
             };
 
+            this.style.pointerEvents = 'none';
+
             dragGroup.push(this);
         }
     }
