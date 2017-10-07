@@ -15,11 +15,8 @@
         this.style.zIndex = this.offsetTop;
     }
 
-    function onmousedown(event) {
-        event.preventDefault();
-
-        // Left button
-        if (event.button === 0 && this.draggable) {
+    function beginDrag(event) {
+        if (dragGroup.indexOf(this) < 0) {
             const { clientX, clientY } = event;
             const { offsetLeft, offsetTop } = this;
 
@@ -29,6 +26,15 @@
             };
 
             dragGroup.push(this);
+        }
+    }
+
+    function onmousedown(event) {
+        event.preventDefault();
+
+        // Left button
+        if (event.button === 0 && this.draggable) {
+            this.beginDrag(event);
         }
         // Right button
         else if (event.button === 2) {
@@ -51,6 +57,7 @@
             tetheredTo: [],
             // Methods
             xy,
+            beginDrag,
             onmousedown,
         });
 

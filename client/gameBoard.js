@@ -4,7 +4,7 @@
         const { x, y } = root.xy();
         const { width, height } = tileStyle;
 
-        return createBaseElement({
+        const tile = createBaseElement({
             style: {
                 ...this.tileStyle,
                 width: px(width),
@@ -13,6 +13,8 @@
                 left: px(x + (column * width)),
             },
         });
+
+        return tile;
     }
 
     function addRow() {

@@ -1,5 +1,6 @@
 ((global) => {
     const KEY = {
+        SHIFT: 16,
         ALT: 18,
     };
 
@@ -27,15 +28,6 @@
                         Math.round(actualX / BOARD_TILE_DIM) * BOARD_TILE_DIM,
                         Math.round(actualY / BOARD_TILE_DIM) * BOARD_TILE_DIM,
                     );
-                }
-
-                if (element.tethered) {
-                    element.tethered.map(({ target, offset }) => {
-                        const newX = parseInt(element.style.left);
-                        const newY = parseInt(element.style.top);
-
-                        target.xy(newX - offset.x, newY - offset.y);
-                    });
                 }
 
                 if (element.dragAction) {
