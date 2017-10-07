@@ -1,15 +1,16 @@
 ((global) => {
     function createTile(row, column) {
-        const { width, height } = this.tileStyle;
+        const { root, tileStyle } = this;
+        const { x, y } = root.xy();
+        const { width, height } = tileStyle;
 
         return createBaseElement({
-            parent: this.root,
             style: {
                 ...this.tileStyle,
                 width: px(width),
                 height: px(height),
-                top: px(row * height),
-                left: px(column * width),
+                top: px(y + (row * height)),
+                left: px(x + (column * width)),
             },
         });
     }
@@ -80,8 +81,8 @@
             border: tileBorder,
         };
 
-        // The board root is used only as a container element for all tiles.
-        // It makes operations like moving the board much simpler.
+        // The board root is used only as a reference point,
+        // relative to which all tiles and UI will be placed
         const root = createBaseElement({
             style: {
                 top: px(top),
@@ -101,11 +102,14 @@
             addColumn,
         };
 
-        createHandle(board);
+        const handle = createHandle(board);
 
         for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
-                board.tiles.push(board.createTile(rowIndex, columnIndex));
+                const tile = board.createTile(rowIndex, columnIndex);
+
+                board.tiles.push(tile);
+                handle.tether(tile);
             }
         }
 

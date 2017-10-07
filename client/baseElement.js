@@ -1,5 +1,12 @@
 ((global) => {
     function xy(x, y) {
+        if (!arguments.length) {
+            return {
+                x: parseInt(this.style.left),
+                y: parseInt(this.style.top),
+            };
+        }
+
         this.style.left = px(x);
         this.style.top = px(y);
     }
