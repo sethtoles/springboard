@@ -40,7 +40,13 @@
         // Left button
         if (button === 0) {
             if (dragGroup.length) {
+                const { snapTo } = dragGroup;
+
                 dragGroup.map((element) => {
+                    if (snapTo && snapTo.tether) {
+                        snapTo.tether(element);
+                    }
+
                     element.style.pointerEvents = 'initial';
                 });
 

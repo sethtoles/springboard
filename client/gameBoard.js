@@ -26,6 +26,8 @@
             }
         });
 
+        makeTethering(tile);
+
         return tile;
     }
 
