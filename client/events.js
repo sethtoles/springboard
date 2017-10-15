@@ -29,9 +29,7 @@
                     element.xy(actualX, actualY);
                 }
 
-                if (element.dragAction) {
-                    element.dragAction();
-                }
+                element.handleMovement();
             });
         }
     }

@@ -100,6 +100,7 @@
         // The board root is used only as a reference point,
         // relative to which all tiles and UI will be placed
         const root = createBaseElement({
+            draggable: true,
             style: {
                 top: px(top),
                 left: px(left),
