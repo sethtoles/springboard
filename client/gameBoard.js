@@ -26,8 +26,6 @@
             }
         });
 
-        makeTethering(tile);
-
         return tile;
     }
 
@@ -72,7 +70,6 @@
 
         makeTethering(handle);
 
-        handle.tether(root);
         handle.classList.add('fa', 'fa-arrows', 'fa-5x');
 
         return handle;
@@ -100,12 +97,13 @@
         // The board root is used only as a reference point,
         // relative to which all tiles and UI will be placed
         const root = createBaseElement({
-            draggable: true,
             style: {
                 top: px(top),
                 left: px(left),
             },
         });
+
+        makeTethering(root);
 
         const board = {
             root,
@@ -126,9 +124,11 @@
                 const tile = board.createTile(rowIndex, columnIndex);
 
                 board.tiles.push(tile);
-                handle.tether(tile);
+                root.tether(tile);
             }
         }
+
+        handle.tether(root);
 
         return board;
     }

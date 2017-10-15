@@ -40,7 +40,6 @@
         element.addEventListener('mousedown', handleMouseDown.bind(element));
 
         Object.assign(element, {
-            tetheredTo: [],
             // Methods
             xy,
             setStyle,

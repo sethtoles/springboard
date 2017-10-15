@@ -16,8 +16,6 @@
     }
 
     function handleMouseDown(event) {
-        event.preventDefault();
-
         // Left button
         if (event.button === 0) {
             this.beginDrag(event);

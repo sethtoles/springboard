@@ -1,19 +1,22 @@
 ((global) => {
     function tether(target) {
-        const { x, y } = this.xy();
-        const targetXY = target.xy();
+        const { x, y } = this.getBoundingClientRect();
+        const targetXY = target.getBoundingClientRect();
 
-        this.tethered.push({
-            target,
-            offset: {
-                x: x - targetXY.x,
-                y: y - targetXY.y,
-            },
-        });
+        // find screen x and y of target (not relative, as it may be tethered)
+        // calculate offset  with this
+        // set target xy to offset
+        // append as child
 
-        // Include tethered relationship mapping on the target,
-        // so it can easily untether itself at any time
-        target.tetheredTo.push(this);
+        const offset = {
+            x: targetXY.x - x,
+            y: targetXY.y - y,
+        };
+
+        target.xy(offset.x, offset.y);
+
+        this.tethered.push(target);
+        this.appendChild(target);
     }
 
     function untether(target) {
@@ -21,10 +24,8 @@
             .findIndex((tetheredItem) => (tetheredItem.target === target))
         ;
 
-        const tetheredToIndex = target.tetheredTo.indexOf(this);
-
         this.tethered.splice(tetheredIndex, 1);
-        target.tetheredTo.splice(tetheredToIndex, 1);
+        document.appendChild(target);
     }
 
     global.makeTethering = (element) => {
