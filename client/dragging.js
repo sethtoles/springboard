@@ -1,5 +1,9 @@
 ((global) => {
     function beginDrag(event) {
+        const { x, y } = this.getBoundingClientRect();
+        document.body.appendChild(this);
+        this.xy(x, y);
+
         if (dragGroup.indexOf(this) < 0) {
             const { clientX, clientY } = event;
             const { offsetLeft, offsetTop } = this;

@@ -22,7 +22,7 @@
                 const actualY = clientY - y;
 
                 if (dragGroup.snapTo && !held[KEY.CTRL]) {
-                    snapXY = dragGroup.snapTo.xy();
+                    snapXY = dragGroup.snapTo.getBoundingClientRect();
                     element.xy(snapXY.x, snapXY.y);
                 }
                 else {

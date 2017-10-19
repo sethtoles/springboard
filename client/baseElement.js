@@ -21,6 +21,7 @@
 
     function handleMouseDown(event) {
         event.preventDefault();
+        event.stopPropagation();
 
         // Right button
         if (event.button === 2) {
