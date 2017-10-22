@@ -71,6 +71,7 @@
         });
 
         makeTethering(handle);
+        handle.tether(root);
 
         handle.classList.add('fa', 'fa-arrows', 'fa-5x');
 
@@ -119,8 +120,6 @@
             addColumn,
         };
 
-        const handle = createHandle(board);
-
         for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
                 const tile = board.createTile(rowIndex, columnIndex);
@@ -130,7 +129,7 @@
             }
         }
 
-        handle.tether(root);
+        const handle = createHandle(board);
 
         return board;
     }

@@ -25,7 +25,8 @@
 
         // Right button
         if (event.button === 2) {
-            document.body.removeChild(this);
+            parent = this.parentElement;
+            parent.removeChild(this);
         }
     };
 
