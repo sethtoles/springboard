@@ -26,6 +26,16 @@
         // Right button
         if (event.button === 2) {
             parent = this.parentElement;
+            const { tethered } = parent;
+
+            if (tethered) {
+                thisIndex = tethered.indexOf(this);
+
+                if (thisIndex > -1) {
+                    tethered.splice(thisIndex, 1);
+                }
+            }
+
             parent.removeChild(this);
         }
     };
