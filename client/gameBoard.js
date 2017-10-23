@@ -55,7 +55,7 @@
         this.columns++;
     }
 
-    function createHandle({ root, columns, tileStyle }) {
+    const createHandle = ({ root, columns, tileStyle }) => {
         const { top, left } = root.style;
         const { width, height } = tileStyle;
 
@@ -76,6 +76,33 @@
         handle.classList.add('fa', 'fa-arrows', 'fa-5x');
 
         return handle;
+    }
+
+    const createAddRowButton = (board) => {
+        const { root, columns, tileStyle } = board;
+        const { top, left } = root.style;
+        const { width, height } = tileStyle;
+
+        const button = createBaseElement({
+            style: {
+                top: px(parseInt(top) + height),
+                left: px(parseInt(left) + (width * columns)),
+                width: px(width),
+                height: px(height),
+                backgroundColor: rgb(128),
+            }
+        });
+
+        button.addEventListener('mousedown', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            board.addRow();
+        });
+
+        button.classList.add('fa', 'fa-angle-double-down');
+
+        return button;
     }
 
     global.createBoard = (options = {}) => {
@@ -129,7 +156,10 @@
             }
         }
 
+        const addRowButton = createAddRowButton(board);
         const handle = createHandle(board);
+
+        handle.tether(addRowButton);
 
         return board;
     }

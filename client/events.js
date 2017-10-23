@@ -51,15 +51,15 @@
                 dragGroup.length = 0;
                 delete dragGroup.snapTo;
             }
-            else {
-                createBaseElement({
-                    draggable: true,
-                    style: {
-                        top: px(clientY),
-                        left: px(clientX),
-                    },
-                });
-            }
+            // else {
+            //     createBaseElement({
+            //         draggable: true,
+            //         style: {
+            //             top: px(clientY),
+            //             left: px(clientX),
+            //         },
+            //     });
+            // }
         }
     }
 
