@@ -1,7 +1,7 @@
 ((global) => {
     function createTile(row, column) {
         const { root, tileStyle } = this;
-        const { x, y } = root.xy();
+        const { x, y } = root.getBoundingClientRect();
         const { width, height } = tileStyle;
 
         const tile = createBaseElement({
@@ -27,6 +27,7 @@
         });
 
         makeTethering(tile);
+        root.tether(tile);
 
         return tile;
     }
@@ -79,26 +80,23 @@
     }
 
     const createAddRowButton = (board) => {
-        const { root, columns, tileStyle } = board;
-        const { top, left } = root.style;
+        const { root, handle, columns, tileStyle } = board;
+        const { x, y } = root.getBoundingClientRect();
         const { width, height } = tileStyle;
 
         const button = createBaseElement({
             style: {
-                top: px(parseInt(top) + height),
-                left: px(parseInt(left) + (width * columns)),
+                top: px(y + height),
+                left: px(x + (width * columns)),
                 width: px(width),
                 height: px(height),
                 backgroundColor: rgb(128),
             }
         });
 
-        button.addEventListener('mousedown', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
+        button.addEventListener('mousedown', () => board.addRow());
 
-            board.addRow();
-        });
+        handle.tether(button);
 
         button.classList.add('fa', 'fa-angle-double-down');
 
@@ -135,8 +133,15 @@
 
         makeTethering(root);
 
+        const handle = createHandle({
+            root,
+            columns,
+            tileStyle,
+        });
+
         const board = {
             root,
+            handle,
             rows,
             columns,
             tileStyle,
@@ -146,6 +151,7 @@
             addRow,
             addColumn,
         };
+
 
         for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
@@ -157,9 +163,6 @@
         }
 
         const addRowButton = createAddRowButton(board);
-        const handle = createHandle(board);
-
-        handle.tether(addRowButton);
 
         return board;
     }

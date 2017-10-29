@@ -40,6 +40,7 @@
             if (dragGroup.length) {
                 const { snapTo } = dragGroup;
 
+                // Tether all dragged elements to snap target
                 dragGroup.map((element) => {
                     if (snapTo && snapTo.tether) {
                         snapTo.tether(element);
@@ -48,18 +49,19 @@
                     element.style.pointerEvents = 'initial';
                 });
 
+                // Clear drag group and snap target
                 dragGroup.length = 0;
                 delete dragGroup.snapTo;
             }
-            // else {
-            //     createBaseElement({
-            //         draggable: true,
-            //         style: {
-            //             top: px(clientY),
-            //             left: px(clientX),
-            //         },
-            //     });
-            // }
+            else {
+                createBaseElement({
+                    draggable: true,
+                    style: {
+                        top: px(clientY),
+                        left: px(clientX),
+                    },
+                });
+            }
         }
     }
 
