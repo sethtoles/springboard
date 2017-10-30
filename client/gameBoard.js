@@ -53,6 +53,13 @@
             );
         }
 
+        const { width } = this.tileStyle;
+        const rootLeft = parseInt(this.root.style.left);
+        const handleLeft = parseInt(this.handle.style.left);
+
+        this.root.setStyle({ left: px(rootLeft - width) });
+        this.handle.setStyle({ left: px(handleLeft + width) });
+
         this.columns++;
     }
 
@@ -79,28 +86,37 @@
         return handle;
     }
 
-    const createAddRowButton = (board) => {
+    const createBoardControls = (board) => {
         const { root, handle, columns, tileStyle } = board;
         const { x, y } = root.getBoundingClientRect();
         const { width, height } = tileStyle;
 
-        const button = createBaseElement({
+        baseButtonStyle = {
+            left: px(x + (width * columns)),
+            width: px(width),
+            height: px(height),
+            backgroundColor: rgb(128),
+        }
+
+        const addRowButton = createBaseElement({
             style: {
+                ...baseButtonStyle,
                 top: px(y + height),
-                left: px(x + (width * columns)),
-                width: px(width),
-                height: px(height),
-                backgroundColor: rgb(128),
             }
         });
+        addRowButton.addEventListener('mousedown', () => board.addRow());
+        addRowButton.classList.add('fa', 'fa-angle-double-down');
+        handle.tether(addRowButton);
 
-        button.addEventListener('mousedown', () => board.addRow());
-
-        handle.tether(button);
-
-        button.classList.add('fa', 'fa-angle-double-down');
-
-        return button;
+        const addColumnButton = createBaseElement({
+            style: {
+                ...baseButtonStyle,
+                top: px(y + (height * 2)),
+            }
+        });
+        addColumnButton.addEventListener('mousedown', () => board.addColumn());
+        addColumnButton.classList.add('fa', 'fa-angle-double-right');
+        handle.tether(addColumnButton);
     }
 
     global.createBoard = (options = {}) => {
@@ -152,7 +168,6 @@
             addColumn,
         };
 
-
         for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
             for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
                 const tile = board.createTile(rowIndex, columnIndex);
@@ -162,7 +177,7 @@
             }
         }
 
-        const addRowButton = createAddRowButton(board);
+        createBoardControls(board);
 
         return board;
     }
