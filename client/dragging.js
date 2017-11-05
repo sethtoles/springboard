@@ -1,3 +1,5 @@
+import { dragGroup } from './globalState.js';
+
 function beginDrag(event) {
     const { x, y } = this.getBoundingClientRect();
     document.body.appendChild(this);

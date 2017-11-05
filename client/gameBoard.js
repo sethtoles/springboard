@@ -1,5 +1,6 @@
 import { px, rgb, border } from './util.js';
 import { BOARD_TILE_DIM, BOARD_ROWS, BOARD_COLUMNS } from './config.js';
+import { dragGroup } from './globalState.js';
 import { createBaseElement } from './baseElement.js';
 import { makeTethering } from './tethering.js';
 
@@ -95,7 +96,7 @@ const createBoardControls = (board) => {
     const { x, y } = root.getBoundingClientRect();
     const { width, height } = tileStyle;
 
-    baseButtonStyle = {
+    const baseButtonStyle = {
         left: px(x + (width * columns)),
         width: px(width),
         height: px(height),

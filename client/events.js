@@ -1,3 +1,5 @@
+import { dragGroup, held } from './globalState.js';
+
 const KEY = {
     SHIFT: 16,
     CTRL: 17,
