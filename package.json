@@ -5,7 +5,11 @@
   "main": "index.js",
   "author": "Seth Toles <sethtoles@gmail.com>",
   "license": "ISC",
+  "scripts": {
+    "dev": "./node_modules/http-server/bin/http-server"
+  },
   "devDependencies": {
+    "http-server": "^0.10.0",
     "nodemon": "^1.12.1"
   },
   "dependencies": {
