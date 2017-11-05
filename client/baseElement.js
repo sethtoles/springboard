@@ -32,7 +32,7 @@ function handleMouseDown(event) {
         const { tethered } = parent;
 
         if (tethered) {
-            thisIndex = tethered.indexOf(this);
+            const thisIndex = tethered.indexOf(this);
 
             if (thisIndex > -1) {
                 tethered.splice(thisIndex, 1);
