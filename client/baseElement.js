@@ -1,78 +1,80 @@
-((global) => {
-    function xy(x, y) {
-        if (!arguments.length) {
-            return {
-                x: parseInt(this.style.left),
-                y: parseInt(this.style.top),
-            };
-        }
+import { px, rgb } from './util.js';
+import { BOARD_TILE_DIM } from './config.js';
+import { makeDraggable } from './dragging.js';
 
-        this.style.left = px(x);
-        this.style.top = px(y);
+function xy(x, y) {
+    if (!arguments.length) {
+        return {
+            x: parseInt(this.style.left),
+            y: parseInt(this.style.top),
+        };
     }
 
-    function setStyle(options = {}) {
-        Object.assign(this.style, options);
-    }
+    this.style.left = px(x);
+    this.style.top = px(y);
+}
 
-    function handleMovement() {
-        this.style.zIndex = this.offsetTop;
-    }
+function setStyle(options = {}) {
+    Object.assign(this.style, options);
+}
 
-    function handleMouseDown(event) {
-        event.preventDefault();
-        event.stopPropagation();
+function handleMovement() {
+    this.style.zIndex = this.offsetTop;
+}
 
-        // Right button
-        if (event.button === 2) {
-            parent = this.parentElement;
-            const { tethered } = parent;
+function handleMouseDown(event) {
+    event.preventDefault();
+    event.stopPropagation();
 
-            if (tethered) {
-                thisIndex = tethered.indexOf(this);
+    // Right button
+    if (event.button === 2) {
+        parent = this.parentElement;
+        const { tethered } = parent;
 
-                if (thisIndex > -1) {
-                    tethered.splice(thisIndex, 1);
-                }
+        if (tethered) {
+            thisIndex = tethered.indexOf(this);
+
+            if (thisIndex > -1) {
+                tethered.splice(thisIndex, 1);
             }
-
-            parent.removeChild(this);
-        }
-    };
-
-    global.createBaseElement = (options = {}) => {
-        const {
-            parent = document.body,
-            style = {},
-            draggable = false,
-        } = options;
-
-        const element = document.createElement('div');
-
-        element.addEventListener('mousedown', handleMouseDown.bind(element));
-
-        Object.assign(element, {
-            // Methods
-            xy,
-            setStyle,
-            handleMovement,
-        });
-
-        // Style assignment
-        element.setStyle({
-            width: px(BOARD_TILE_DIM),
-            height: px(BOARD_TILE_DIM),
-            backgroundColor: rgb(0),
-            position: 'absolute',
-            ...style,
-        });
-
-        if (draggable) {
-            makeDraggable(element);
         }
 
-        parent.appendChild(element);
+        parent.removeChild(this);
+    }
+};
 
-        return element;
-    };
-})(window);
+export const createBaseElement = (options = {}) => {
+    const {
+        parent = document.body,
+        style = {},
+        draggable = false,
+    } = options;
+
+    const element = document.createElement('div');
+
+    element.addEventListener('mousedown', handleMouseDown.bind(element));
+
+    Object.assign(element, {
+        // Methods
+        xy,
+        setStyle,
+        handleMovement,
+    });
+
+    // Style assignment
+    element.setStyle({
+        width: px(BOARD_TILE_DIM),
+        height: px(BOARD_TILE_DIM),
+        backgroundColor: rgb(0),
+        position: 'absolute',
+        ...style,
+    });
+
+    if (draggable) {
+        makeDraggable(element);
+    }
+
+    parent.appendChild(element);
+
+    return element;
+};
