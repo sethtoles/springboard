@@ -23,7 +23,7 @@ function handleMouseMove({ clientX, clientY }) {
             const actualY = clientY - y;
 
             if (dragGroup.snapTo && !held[KEY.CTRL]) {
-                snapXY = dragGroup.snapTo.getBoundingClientRect();
+                const snapXY = dragGroup.snapTo.getBoundingClientRect();
                 element.xy(snapXY.x, snapXY.y);
             }
             else {

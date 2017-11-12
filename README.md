@@ -15,7 +15,7 @@ Then navigate to `localhost:8080` in any browser with modern JavaScript function
 You get a grid. Enjoy it. You can make it taller or wider by clicking the double-arrow buttons on its right edge. You can drag it around the window with the handle icon.
 
 #### Game Pieces
-~Click anywhere to create a game piece~ (this doesn't work right now, check back later). Click and drag a piece to move it. By default the piece will snap to the baord grid, but holding <kbd>ctrl</kbd> allows you to move the piece freely. Right-click on a piece removes it.
+Click the deck (that's the ugly blue rectangle) to create a new board tile. Click and drag a tile to move it. By default the tile will snap to the board grid, but holding <kbd>ctrl</kbd> allows you to move the tile freely. Right-click on a tile removes it.
 
 ## Desired Features
 - [ ] Customizable board size
