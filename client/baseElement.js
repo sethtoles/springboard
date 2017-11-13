@@ -22,27 +22,6 @@ function handleMovement() {
     this.style.zIndex = this.offsetTop;
 }
 
-function handleMouseDown(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    // Right button
-    if (event.button === 2) {
-        parent = this.parentElement;
-        const { tethered } = parent;
-
-        if (tethered) {
-            const thisIndex = tethered.indexOf(this);
-
-            if (thisIndex > -1) {
-                tethered.splice(thisIndex, 1);
-            }
-        }
-
-        parent.removeChild(this);
-    }
-};
-
 export const createBaseElement = (options = {}) => {
     const {
         parent = document.body,
@@ -51,8 +30,6 @@ export const createBaseElement = (options = {}) => {
     } = options;
 
     const element = document.createElement('div');
-
-    element.addEventListener('mousedown', handleMouseDown.bind(element));
 
     Object.assign(element, {
         // Methods

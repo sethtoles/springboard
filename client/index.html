@@ -16,10 +16,12 @@
 <script type="module" src="tethering.js"></script>
 <script type="module" src="gameBoard.js"></script>
 <script type="module" src="deck.js"></script>
+<script type="module" src="trash.js"></script>
 <script type="module">
     import { addListeners } from './events.js';
     import { createBoard } from './gameBoard.js';
     import { createDeck }  from './deck.js';
+    import { createTrash }  from './trash.js';
 
     addListeners();
 
@@ -29,5 +31,6 @@
     });
 
     const deck = createDeck();
+    const trash = createTrash();
 </script>
 </html>
