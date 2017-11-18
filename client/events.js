@@ -47,7 +47,9 @@ function handleMouseUp({ clientX, clientY, button }) {
                     snapTo.tether(element);
                 }
 
-                element.style.pointerEvents = 'initial';
+                element.setStyle({
+                    pointerEvents: 'initial',
+                });
             });
 
             // Clear drag group and snap target

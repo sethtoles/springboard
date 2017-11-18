@@ -1,4 +1,4 @@
-import { px, rgb } from './util.js';
+import { rgb } from './util.js';
 import { dragGroup } from './globalState.js';
 import { createBaseElement } from './baseElement.js';
 
@@ -22,9 +22,9 @@ const deleteItems = () => {
 export const createTrash = () => {
     const trash = createBaseElement({
         style: {
-            width: px(200),
-            height: px(200),
-            top: px(1000),
+            width: 200,
+            height: 200,
+            top: 1000,
             color: rgb(255),
             backgroundColor: rgb(200, 0, 0),
         },

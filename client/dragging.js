@@ -14,7 +14,9 @@ function beginDrag(event) {
             y: clientY - offsetTop,
         };
 
-        this.style.pointerEvents = 'none';
+        this.setStyle({
+            pointerEvents: 'none',
+        });
 
         dragGroup.push(this);
     }

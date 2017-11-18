@@ -2,20 +2,37 @@ import { px, rgb } from './util.js';
 import { BOARD_TILE_DIM } from './config.js';
 import { makeDraggable } from './dragging.js';
 
+const PX_PROPS = [ 'left', 'right', 'width', 'height' ];
+
 function xy(x, y) {
     if (!arguments.length) {
-        return {
-            x: parseInt(this.style.left),
-            y: parseInt(this.style.top),
-        };
+        return this.getBoundingClientRect();
     }
 
-    this.style.left = px(x);
-    this.style.top = px(y);
+    const parentXY = this.parentElement.getBoundingClientRect();
+
+    this.setStyle({
+        top: y - parentXY.y,
+        left: x - parentXY.x,
+    });
 }
 
 function setStyle(options = {}) {
-    Object.assign(this.style, options);
+    Object.keys(options).map((key) => {
+        const value = options[key];
+        this.style[key] = PX_PROPS.includes(key) ? px(value) : value;
+    });
+}
+
+function getStyle() {
+    const style = {};
+
+    Object.keys(this.style).map((key) => {
+        const value = this.style[key];
+        style[key] = PX_PROPS.includes(key) ? parseInt(value, 10) : value;
+    });
+
+    return style;
 }
 
 function handleMovement() {
@@ -31,17 +48,18 @@ export const createBaseElement = (options = {}) => {
 
     const element = document.createElement('div');
 
+    // Methods
     Object.assign(element, {
-        // Methods
         xy,
         setStyle,
+        getStyle,
         handleMovement,
     });
 
     // Style assignment
     element.setStyle({
-        width: px(BOARD_TILE_DIM),
-        height: px(BOARD_TILE_DIM),
+        width: BOARD_TILE_DIM,
+        height: BOARD_TILE_DIM,
         backgroundColor: rgb(0),
         position: 'absolute',
         ...style,

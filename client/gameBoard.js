@@ -1,4 +1,4 @@
-import { px, rgb, border } from './util.js';
+import { rgb, border } from './util.js';
 import { BOARD_TILE_DIM, BOARD_ROWS, BOARD_COLUMNS } from './config.js';
 import { dragGroup } from './globalState.js';
 import { createBaseElement } from './baseElement.js';
@@ -12,10 +12,10 @@ function createTile(row, column) {
     const tile = createBaseElement({
         style: {
             ...this.tileStyle,
-            width: px(width),
-            height: px(height),
-            top: px(y + (row * height)),
-            left: px(x + (column * width)),
+            width: width,
+            height: height,
+            top: y + (row * height),
+            left: x + (column * width),
         },
     });
 
@@ -62,23 +62,23 @@ function addColumn() {
     const rootLeft = parseInt(this.root.style.left);
     const handleLeft = parseInt(this.handle.style.left);
 
-    this.root.setStyle({ left: px(rootLeft - width) });
-    this.handle.setStyle({ left: px(handleLeft + width) });
+    this.root.setStyle({ left: rootLeft - width });
+    this.handle.setStyle({ left: handleLeft + width });
 
     this.columns++;
 }
 
 const createHandle = ({ root, columns, tileStyle }) => {
-    const { top, left } = root.style;
+    const { top, left } = root.getStyle();
     const { width, height } = tileStyle;
 
     const handle = createBaseElement({
         draggable: true,
         style: {
             top,
-            left: px(parseInt(left) + (width * columns)),
-            width: px(width),
-            height: px(height),
+            left: left + (width * columns),
+            width: width,
+            height: height,
             color: rgb(255),
         },
     });
@@ -97,16 +97,16 @@ const createBoardControls = (board) => {
     const { width, height } = tileStyle;
 
     const baseButtonStyle = {
-        left: px(x + (width * columns)),
-        width: px(width),
-        height: px(height),
+        left: x + (width * columns),
+        width,
+        height,
         backgroundColor: rgb(128),
     }
 
     const addRowButton = createBaseElement({
         style: {
             ...baseButtonStyle,
-            top: px(y + height),
+            top: y + height,
         }
     });
     addRowButton.addEventListener('mousedown', () => board.addRow());
@@ -116,8 +116,8 @@ const createBoardControls = (board) => {
     const addColumnButton = createBaseElement({
         style: {
             ...baseButtonStyle,
-            top: px(y + (height * 2)),
-        }
+            top: y + (height * 2),
+        },
     });
     addColumnButton.addEventListener('mousedown', () => board.addColumn());
     addColumnButton.classList.add('fa', 'fa-angle-double-right');
@@ -147,8 +147,8 @@ export const createBoard = (options = {}) => {
     // relative to which all tiles and UI will be placed
     const root = createBaseElement({
         style: {
-            top: px(top),
-            left: px(left),
+            top,
+            left,
         },
     });
 
