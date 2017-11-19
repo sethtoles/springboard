@@ -1,4 +1,3 @@
-import { rgb } from './util.js';
 import { dragGroup } from './globalState.js';
 import { createBaseElement } from './baseElement.js';
 
@@ -25,8 +24,8 @@ export const createTrash = () => {
             width: 200,
             height: 200,
             top: 1000,
-            color: rgb(255),
-            backgroundColor: rgb(200, 0, 0),
+            color: [255],
+            backgroundColor: [200, 0, 0],
         },
     });
 

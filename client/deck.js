@@ -1,4 +1,3 @@
-import { rgb } from './util.js';
 import { createBaseElement } from './baseElement.js';
 
 function createPiece() {
@@ -18,7 +17,7 @@ export const createDeck = (options = {}) => {
         style: {
             width: 300,
             height: 400,
-            backgroundColor: rgb(0, 0, 128),
+            backgroundColor: [0, 0, 128],
         },
     });
 

@@ -3,6 +3,7 @@ import { BOARD_TILE_DIM } from './config.js';
 import { makeDraggable } from './dragging.js';
 
 const PX_PROPS = [ 'left', 'right', 'width', 'height' ];
+const COLOR_PROPS = [ 'color', 'backgroundColor' ];
 
 function xy(x, y) {
     if (!arguments.length) {
@@ -20,7 +21,16 @@ function xy(x, y) {
 function setStyle(options = {}) {
     Object.keys(options).map((key) => {
         const value = options[key];
-        this.style[key] = PX_PROPS.includes(key) ? px(value) : value;
+
+        if (PX_PROPS.includes(key)) {
+            this.style[key] = px(value);
+        }
+        else if (COLOR_PROPS.includes(key)) {
+            this.style[key] = rgb(value);
+        }
+        else {
+            this.style[key] = value;
+        }
     });
 }
 
@@ -29,7 +39,21 @@ function getStyle() {
 
     Object.keys(this.style).map((key) => {
         const value = this.style[key];
-        style[key] = PX_PROPS.includes(key) ? parseInt(value, 10) : value;
+
+        if (PX_PROPS.includes(key)) {
+            style[key] = parseInt(value, 10);
+        }
+        else if (COLOR_PROPS.includes(key)) {
+            style[key] = value
+                .slice(4) // Trim 'rgb('
+                .slice(0, -1) // Trim ')'
+                .split(',') // Get array of channel string values
+                .map((channel) => parseInt(channel, 10)) // Get array of channel values
+            ;
+        }
+        else {
+            style[key] = value;
+        }
     });
 
     return style;
@@ -60,7 +84,7 @@ export const createBaseElement = (options = {}) => {
     element.setStyle({
         width: BOARD_TILE_DIM,
         height: BOARD_TILE_DIM,
-        backgroundColor: rgb(0),
+        backgroundColor: [0],
         position: 'absolute',
         ...style,
     });

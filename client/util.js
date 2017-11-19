@@ -1,5 +1,10 @@
 export const px = (size) => `${size}px`;
 
-export const rgb = (r, g = r, b = r) => `rgb(${r},${g},${b})`;
+export const rgb = (arr) => {
+    const [ r, ...gb ] = arr;
+    const [ g = r, b = r ] = gb;
 
-export const border = (size, color) => `${px(size)} solid ${color}`;
+    return `rgb(${r},${g},${b})`;
+};
+
+export const border = (size, color) => `${px(size)} solid ${rgb(color)}`;

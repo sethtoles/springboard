@@ -1,4 +1,4 @@
-import { rgb, border } from './util.js';
+import { border } from './util.js';
 import { BOARD_TILE_DIM, BOARD_ROWS, BOARD_COLUMNS } from './config.js';
 import { dragGroup } from './globalState.js';
 import { createBaseElement } from './baseElement.js';
@@ -79,7 +79,7 @@ const createHandle = ({ root, columns, tileStyle }) => {
             left: left + (width * columns),
             width: width,
             height: height,
-            color: rgb(255),
+            color: [255],
         },
     });
 
@@ -100,7 +100,7 @@ const createBoardControls = (board) => {
         left: x + (width * columns),
         width,
         height,
-        backgroundColor: rgb(128),
+        backgroundColor: [128],
     }
 
     const addRowButton = createBaseElement({
@@ -132,8 +132,8 @@ export const createBoard = (options = {}) => {
         left = 0,
         tileWidth = BOARD_TILE_DIM,
         tileHeight = BOARD_TILE_DIM,
-        tileColor = rgb(255),
-        tileBorder = border(1, rgb(0)),
+        tileColor = [255],
+        tileBorder = border(1, [0]),
     } = options;
 
     const tileStyle = {
