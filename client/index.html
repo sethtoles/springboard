@@ -4,9 +4,7 @@
     <title>springboard</title>
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
 </head>
-<body>
-    <pre>springboard</pre>
-</body>
+<body style="margin: 0"></body>
 <script type="module" src="util.js"></script>
 <script type="module" src="config.js"></script>
 <script type="module" src="globalState.js"></script>
@@ -25,12 +23,12 @@
 
     addListeners();
 
-    const board = createBoard({
+    window.board = createBoard({
         top: 30,
         left: 500,
     });
 
-    const deck = createDeck();
-    const trash = createTrash();
+    window.deck = createDeck();
+    window.trash = createTrash();
 </script>
 </html>

@@ -6,7 +6,7 @@ import { makeTethering } from './tethering.js';
 
 function createTile(row, column) {
     const { root, tileStyle } = this;
-    const { x, y } = root.getBoundingClientRect();
+    const { x, y } = root.xy();
     const { width, height } = tileStyle;
 
     const tile = createBaseElement({
@@ -178,7 +178,6 @@ export const createBoard = (options = {}) => {
             const tile = board.createTile(rowIndex, columnIndex);
 
             board.tiles.push(tile);
-            root.tether(tile);
         }
     }
 

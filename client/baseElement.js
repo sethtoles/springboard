@@ -2,7 +2,7 @@ import { px, rgb } from './util.js';
 import { BOARD_TILE_DIM } from './config.js';
 import { makeDraggable } from './dragging.js';
 
-const PX_PROPS = [ 'left', 'right', 'width', 'height' ];
+const PX_PROPS = [ 'top', 'left', 'width', 'height' ];
 const COLOR_PROPS = [ 'color', 'backgroundColor' ];
 
 function xy(x, y) {

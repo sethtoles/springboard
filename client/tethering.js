@@ -1,6 +1,6 @@
 function tether(target) {
-    const { x, y } = this.getBoundingClientRect();
-    const targetXY = target.getBoundingClientRect();
+    const { x, y } = this.xy();
+    const targetXY = target.xy();
 
     // find screen x and y of target (not relative, as it may be tethered)
     // calculate offset  with this
