@@ -1,12 +1,20 @@
 import { createBaseElement } from './baseElement.js';
 import { makeDraggable } from './dragging.js';
 
-function createPiece() {
+function createPiece(options = {}) {
+    const {
+        style = {},
+    } = options;
+
     const { x, y } = this.xy();
     const { width } = this.getStyle();
     const piece = createBaseElement({
-        top: y,
-        left: x + width,
+        ...options,
+        style: {
+            ...style,
+            top: y,
+            left: x + width,
+        },
     });
 
     makeDraggable(piece);
