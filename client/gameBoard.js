@@ -2,6 +2,7 @@ import { border } from './util.js';
 import { BOARD_TILE_DIM, BOARD_ROWS, BOARD_COLUMNS } from './config.js';
 import { dragGroup } from './globalState.js';
 import { createBaseElement } from './baseElement.js';
+import { makeDraggable } from './dragging.js';
 import { makeTethering } from './tethering.js';
 
 function createTile(row, column) {
@@ -73,7 +74,6 @@ const createHandle = ({ root, columns, tileStyle }) => {
     const { width, height } = tileStyle;
 
     const handle = createBaseElement({
-        draggable: true,
         style: {
             top,
             left: left + (width * columns),
@@ -83,6 +83,7 @@ const createHandle = ({ root, columns, tileStyle }) => {
         },
     });
 
+    makeDraggable(handle);
     makeTethering(handle);
     handle.tether(root);
 
@@ -93,7 +94,7 @@ const createHandle = ({ root, columns, tileStyle }) => {
 
 const createBoardControls = (board) => {
     const { root, handle, columns, tileStyle } = board;
-    const { x, y } = root.getBoundingClientRect();
+    const { x, y } = root.xy();
     const { width, height } = tileStyle;
 
     const baseButtonStyle = {

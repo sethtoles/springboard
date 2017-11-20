@@ -1,6 +1,5 @@
 import { px, rgb } from './util.js';
 import { BOARD_TILE_DIM } from './config.js';
-import { makeDraggable } from './dragging.js';
 
 const PX_PROPS = [ 'top', 'left', 'width', 'height' ];
 const COLOR_PROPS = [ 'color', 'backgroundColor' ];
@@ -67,7 +66,6 @@ export const createBaseElement = (options = {}) => {
     const {
         parent = document.body,
         style = {},
-        draggable = false,
     } = options;
 
     const element = document.createElement('div');
@@ -86,12 +84,9 @@ export const createBaseElement = (options = {}) => {
         height: BOARD_TILE_DIM,
         backgroundColor: [0],
         position: 'absolute',
+        cursor: 'initial',
         ...style,
     });
-
-    if (draggable) {
-        makeDraggable(element);
-    }
 
     parent.appendChild(element);
 

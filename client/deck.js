@@ -1,13 +1,15 @@
 import { createBaseElement } from './baseElement.js';
+import { makeDraggable } from './dragging.js';
 
 function createPiece() {
-    const { x, y } = this.getBoundingClientRect();
-    const { width } = this.style;
+    const { x, y } = this.xy();
+    const { width } = this.getStyle();
     const piece = createBaseElement({
-        draggable: true,
+        top: y,
+        left: x + width,
     });
 
-    piece.xy(x + parseInt(width), y);
+    makeDraggable(piece);
 
     return piece;
 }
