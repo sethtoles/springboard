@@ -87,7 +87,7 @@ const createHandle = ({ root, columns, tileStyle }) => {
     makeTethering(handle);
     handle.tether(root);
 
-    handle.classList.add('fa', 'fa-arrows', 'fa-5x');
+    handle.classList.add('fa', 'fa-arrows', 'fa-2x');
 
     return handle;
 }
