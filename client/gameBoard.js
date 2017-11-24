@@ -60,10 +60,8 @@ function addColumn() {
     }
 
     const { width } = this.tileStyle;
-    const rootLeft = parseInt(this.root.style.left);
-    const handleLeft = parseInt(this.handle.style.left);
+    const { left: handleLeft } = this.handle.getStyle();
 
-    this.root.setStyle({ left: rootLeft - width });
     this.handle.setStyle({ left: handleLeft + width });
 
     this.columns++;

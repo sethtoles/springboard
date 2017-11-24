@@ -22,6 +22,10 @@ function tether(target) {
     });
 }
 
+// extend handleMovement
+
+// extend remove
+
 function untether(target) {
     const tetheredIndex = this.tethered
         .findIndex((tetheredItem) => (tetheredItem.target === target))

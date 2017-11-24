@@ -92,6 +92,7 @@ export const createBaseElement = (options = {}) => {
     });
 
     parent.appendChild(element);
+    element.handleMovement();
 
     return element;
 };
