@@ -1,21 +1,25 @@
 function tether(target) {
-    const { x, y } = this.xy();
-    const targetXY = target.xy();
-
-    // find screen x and y of target (not relative, as it may be tethered)
-    // calculate offset  with this
-    // set target xy to offset
-    // append as child
+    const { top, left } = this.getStyle();
+    const {
+        top: targetTop,
+        left: targetLeft,
+    } = target.getStyle();
 
     const offset = {
-        x: targetXY.x - x,
-        y: targetXY.y - y,
+        top: targetTop - top,
+        left: targetLeft - left,
     };
 
-    target.xy(offset.x, offset.y);
+    if (target.tetheredTo) {
+        target.tetheredTo.untether(target);
+    }
 
-    this.tethered.push(target);
-    this.appendChild(target);
+    target.tetheredTo = this;
+
+    this.tethered.push({
+        offset,
+        target,
+    });
 }
 
 function untether(target) {
@@ -24,7 +28,6 @@ function untether(target) {
     ;
 
     this.tethered.splice(tetheredIndex, 1);
-    document.appendChild(target);
 }
 
 export const makeTethering = (element) => {

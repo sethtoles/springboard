@@ -1,6 +1,6 @@
 import { border } from './util.js';
 import { BOARD_TILE_DIM, BOARD_ROWS, BOARD_COLUMNS } from './config.js';
-import { dragGroup } from './globalState.js';
+import { dragRoot } from './globalState.js';
 import { createBaseElement } from './baseElement.js';
 import { makeDraggable } from './dragging.js';
 import { makeTethering } from './tethering.js';
@@ -21,14 +21,14 @@ function createTile(row, column) {
     });
 
     tile.addEventListener('mouseenter', () => {
-        if (dragGroup.length && dragGroup.indexOf(tile) < 0) {
-            dragGroup.snapTo = tile;
+        if (dragRoot.element !== tile) {
+            dragRoot.snapTo = tile;
         }
     });
 
     tile.addEventListener('mouseleave', () => {
-        if (dragGroup.snapTo === tile) {
-            delete dragGroup.snapTo;
+        if (dragRoot.snapTo === tile) {
+            dragRoot.snapTo = null;
         }
     });
 

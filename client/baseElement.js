@@ -6,14 +6,13 @@ const COLOR_PROPS = [ 'color', 'backgroundColor' ];
 
 function xy(x, y) {
     if (!arguments.length) {
-        return this.getBoundingClientRect();
+        const { top: y, left: x } = this.getStyle();
+        return { x, y };
     }
 
-    const parentXY = this.parentElement.getBoundingClientRect();
-
     this.setStyle({
-        top: y - parentXY.y,
-        left: x - parentXY.x,
+        top: y,
+        left: x,
     });
 }
 
@@ -62,6 +61,10 @@ function handleMovement() {
     this.style.zIndex = this.offsetTop;
 }
 
+function remove() {
+    this.parentElement.removeChild(this);
+}
+
 export const createBaseElement = (options = {}) => {
     const {
         parent = document.body,
@@ -76,6 +79,7 @@ export const createBaseElement = (options = {}) => {
         setStyle,
         getStyle,
         handleMovement,
+        remove,
     });
 
     // Style assignment
@@ -84,7 +88,6 @@ export const createBaseElement = (options = {}) => {
         height: BOARD_TILE_DIM,
         backgroundColor: [0],
         position: 'absolute',
-        cursor: 'initial',
         ...style,
     });
 

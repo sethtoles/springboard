@@ -1,4 +1,4 @@
-import { dragGroup, held } from './globalState.js';
+import { dragRoot, held } from './globalState.js';
 
 const KEY = {
     SHIFT: 16,
@@ -16,45 +16,43 @@ function handleKeyDown(event) {
 }
 
 function handleMouseMove({ clientX, clientY }) {
-    if (dragGroup.length) {
-        dragGroup.map((element) => {
-            const { x = 0, y = 0 } = element.dragOffset;
-            const actualX = clientX - x;
-            const actualY = clientY - y;
+    const { element, snapTo } = dragRoot;
 
-            if (dragGroup.snapTo && !held[KEY.CTRL]) {
-                const snapXY = dragGroup.snapTo.xy();
-                element.xy(snapXY.x, snapXY.y);
-            }
-            else {
-                element.xy(actualX, actualY);
-            }
+    if (element) {
+        const { x = 0, y = 0 } = element.dragOffset;
+        const actualX = clientX - x;
+        const actualY = clientY - y;
 
-            element.handleMovement();
-        });
+        if (snapTo && !held[KEY.CTRL]) {
+            const snapXY = snapTo.xy();
+            element.xy(snapXY.x, snapXY.y);
+        }
+        else {
+            element.xy(actualX, actualY);
+        }
+
+        element.handleMovement();
     }
 }
 
 function handleMouseUp({ clientX, clientY, button }) {
     // Left button
     if (button === 0) {
-        if (dragGroup.length) {
-            const { snapTo } = dragGroup;
+        const { element, snapTo } = dragRoot;
 
-            // Tether all dragged elements to snap target
-            dragGroup.map((element) => {
-                if (snapTo && snapTo.tether) {
-                    snapTo.tether(element);
-                }
+        if (element) {
+            // Tether dragged element to snap target
+            if (snapTo && snapTo.tether) {
+                snapTo.tether(element);
+            }
 
-                element.setStyle({
-                    pointerEvents: 'initial',
-                });
+            element.setStyle({
+                pointerEvents: 'initial',
             });
 
             // Clear drag group and snap target
-            dragGroup.length = 0;
-            delete dragGroup.snapTo;
+            dragRoot.element = null;
+            dragRoot.snapTo = null;
         }
     }
 }

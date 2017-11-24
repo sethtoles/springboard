@@ -1,11 +1,12 @@
-import { dragGroup } from './globalState.js';
+import { dragRoot } from './globalState.js';
 
 function beginDrag(event) {
     const { x, y } = this.xy();
-    document.body.appendChild(this);
     this.xy(x, y);
 
-    if (dragGroup.indexOf(this) < 0) {
+    if (dragRoot.element !== this) {
+        dragRoot.element = this;
+
         const { clientX, clientY } = event;
         const { offsetLeft, offsetTop } = this;
 
@@ -17,8 +18,6 @@ function beginDrag(event) {
         this.setStyle({
             pointerEvents: 'none',
         });
-
-        dragGroup.push(this);
     }
 }
 

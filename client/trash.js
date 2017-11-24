@@ -1,21 +1,10 @@
-import { dragGroup } from './globalState.js';
+import { dragRoot } from './globalState.js';
 import { createBaseElement } from './baseElement.js';
 
 const deleteItems = () => {
-    dragGroup.map((element) => {
-        parent = element.parentElement;
-        const { tethered } = parent;
-
-        if (tethered) {
-            const thisIndex = tethered.indexOf(element);
-
-            if (thisIndex > -1) {
-                tethered.splice(thisIndex, 1);
-            }
-        }
-
-        parent.removeChild(element);
-    });
+    if (dragRoot.element) {
+        dragRoot.element.remove();
+    }
 };
 
 export const createTrash = () => {
