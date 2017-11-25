@@ -27,6 +27,9 @@ function endDrag() {
     if (snapTo && snapTo.tether) {
         snapTo.tether(this);
     }
+    else if (this.tetheredTo) {
+        this.tetheredTo.untether(this);
+    }
 
     // Restore default pointer events
     this.setStyle({

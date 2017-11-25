@@ -22,7 +22,22 @@ function tether(target) {
     });
 }
 
-// extend move
+const extendMove = (element) => {
+    const baseMove = element.move;
+
+    element.move = (...args) => {
+        const { top, left } = element.getStyle()
+
+        baseMove.apply(element, args);
+
+        element.tethered.map(({ offset, target}) => {
+            target.move({
+                top: top + offset.top,
+                left: left + offset.left,
+            });
+        });
+    };
+};
 
 // extend remove
 
@@ -40,4 +55,6 @@ export const makeTethering = (element) => {
         untether,
         tethered: [],
     });
+
+    extendMove(element);
 };
