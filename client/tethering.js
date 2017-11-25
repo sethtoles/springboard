@@ -22,7 +22,7 @@ function tether(target) {
     });
 }
 
-// extend handleMovement
+// extend move
 
 // extend remove
 

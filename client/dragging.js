@@ -1,9 +1,6 @@
 import { dragRoot } from './globalState.js';
 
 function beginDrag(event) {
-    const { x, y } = this.xy();
-    this.xy(x, y);
-
     if (dragRoot.element !== this) {
         dragRoot.element = this;
 

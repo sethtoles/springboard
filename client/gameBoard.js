@@ -7,7 +7,7 @@ import { makeTethering } from './tethering.js';
 
 function createTile(row, column) {
     const { root, tileStyle } = this;
-    const { x, y } = root.xy();
+    const { top, left } = root.getStyle();
     const { width, height } = tileStyle;
 
     const tile = createBaseElement({
@@ -15,8 +15,8 @@ function createTile(row, column) {
             ...this.tileStyle,
             width: width,
             height: height,
-            top: y + (row * height),
-            left: x + (column * width),
+            top: top + (row * height),
+            left: left + (column * width),
         },
     });
 
@@ -92,11 +92,11 @@ const createHandle = ({ root, columns, tileStyle }) => {
 
 const createBoardControls = (board) => {
     const { root, handle, columns, tileStyle } = board;
-    const { x, y } = root.xy();
+    const { top, left } = root.getStyle();
     const { width, height } = tileStyle;
 
     const baseButtonStyle = {
-        left: x + (width * columns),
+        left: left + (width * columns),
         width,
         height,
         backgroundColor: [128],
@@ -105,7 +105,7 @@ const createBoardControls = (board) => {
     const addRowButton = createBaseElement({
         style: {
             ...baseButtonStyle,
-            top: y + height,
+            top: top + height,
         }
     });
     addRowButton.addEventListener('mousedown', () => board.addRow());
@@ -115,7 +115,7 @@ const createBoardControls = (board) => {
     const addColumnButton = createBaseElement({
         style: {
             ...baseButtonStyle,
-            top: y + (height * 2),
+            top: top + (height * 2),
         },
     });
     addColumnButton.addEventListener('mousedown', () => board.addColumn());

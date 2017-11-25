@@ -24,14 +24,11 @@ function handleMouseMove({ clientX, clientY }) {
         const actualY = clientY - y;
 
         if (snapTo && !held[KEY.CTRL]) {
-            const snapXY = snapTo.xy();
-            element.xy(snapXY.x, snapXY.y);
+            element.move(snapTo.getStyle());
         }
         else {
-            element.xy(actualX, actualY);
+            element.move({ top: actualY, left: actualX });
         }
-
-        element.handleMovement();
     }
 }
 

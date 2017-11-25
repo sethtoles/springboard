@@ -4,21 +4,22 @@ import { BOARD_TILE_DIM } from './config.js';
 const PX_PROPS = [ 'top', 'left', 'width', 'height' ];
 const COLOR_PROPS = [ 'color', 'backgroundColor' ];
 
-function xy(x, y) {
-    if (!arguments.length) {
-        const { top: y, left: x } = this.getStyle();
-        return { x, y };
-    }
-
-    this.setStyle({
-        top: y,
-        left: x,
-    });
-}
-
 function setStyle(options = {}) {
-    Object.keys(options).map((key) => {
-        const value = options[key];
+    const {
+        top: thisTop,
+        left: thisLeft
+    } = this.getStyle();
+
+    const {
+        top = thisTop,
+        left = thisLeft,
+        ...otherOptions
+    } = options;
+
+    this.move({ top, left });
+
+    Object.keys(otherOptions).map((key) => {
+        const value = otherOptions[key];
 
         if (PX_PROPS.includes(key)) {
             this.style[key] = px(value);
@@ -30,6 +31,8 @@ function setStyle(options = {}) {
             this.style[key] = value;
         }
     });
+
+    return this;
 }
 
 function getStyle() {
@@ -57,12 +60,20 @@ function getStyle() {
     return style;
 }
 
-function handleMovement() {
-    this.style.zIndex = this.offsetTop;
+function move({ top, left }) {
+    Object.assign(this.style, {
+        top: px(top),
+        left: px(left),
+        zIndex: this.offsetTop,
+    });
+
+    return this;
 }
 
 function remove() {
     this.parentElement.removeChild(this);
+
+    return this;
 }
 
 export const createBaseElement = (options = {}) => {
@@ -75,10 +86,9 @@ export const createBaseElement = (options = {}) => {
 
     // Methods
     Object.assign(element, {
-        xy,
         setStyle,
         getStyle,
-        handleMovement,
+        move,
         remove,
     });
 
@@ -92,7 +102,6 @@ export const createBaseElement = (options = {}) => {
     });
 
     parent.appendChild(element);
-    element.handleMovement();
 
     return element;
 };
