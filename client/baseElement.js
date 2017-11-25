@@ -64,7 +64,7 @@ function move({ top, left }) {
     Object.assign(this.style, {
         top: px(top),
         left: px(left),
-        zIndex: this.offsetTop,
+        zIndex: top,
     });
 
     return this;

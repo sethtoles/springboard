@@ -62,7 +62,7 @@ function addColumn() {
     const { width } = this.tileStyle;
     const { left: handleLeft } = this.handle.getStyle();
 
-    this.handle.setStyle({ left: handleLeft + width });
+    this.handle.move({ left: handleLeft + width });
 
     this.columns++;
 }
