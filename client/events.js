@@ -19,15 +19,16 @@ function handleMouseMove({ clientX, clientY }) {
     const { element, snapTo } = dragRoot;
 
     if (element) {
-        const { x = 0, y = 0 } = element.dragOffset;
-        const actualX = clientX - x;
-        const actualY = clientY - y;
-
         if (snapTo && !held[KEY.CTRL]) {
             element.move(snapTo.getStyle());
         }
         else {
-            element.move({ top: actualY, left: actualX });
+            const { top = 0, left = 0 } = element.dragOffset;
+
+            element.move({
+                top: clientY - top,
+                left: clientX - left,
+            });
         }
     }
 }
@@ -35,21 +36,11 @@ function handleMouseMove({ clientX, clientY }) {
 function handleMouseUp({ clientX, clientY, button }) {
     // Left button
     if (button === 0) {
-        const { element, snapTo } = dragRoot;
+        const { element } = dragRoot;
 
-        if (element) {
-            // Tether dragged element to snap target
-            if (snapTo && snapTo.tether) {
-                snapTo.tether(element);
-            }
-
-            element.setStyle({
-                pointerEvents: 'initial',
-            });
-
-            // Clear drag group and snap target
-            dragRoot.element = null;
-            dragRoot.snapTo = null;
+        // Finish dragging any dragged element
+        if (element && element.endDrag) {
+            element.endDrag();
         }
     }
 }
