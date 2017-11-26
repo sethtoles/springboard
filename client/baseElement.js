@@ -8,7 +8,7 @@ function setStyle(options = {}) {
     const {
         top: thisTop,
         left: thisLeft
-    } = this.getStyle();
+    } = this.getStyle([ 'top', 'left' ]);
 
     const {
         top = thisTop,
@@ -35,26 +35,28 @@ function setStyle(options = {}) {
     return this;
 }
 
-function getStyle() {
+const getPropStyle = (key, value) => {
+    if (PX_PROPS.includes(key)) {
+        return parseInt(value, 10);
+    }
+    else if (COLOR_PROPS.includes(key)) {
+        return value
+            .slice(4) // Trim 'rgb('
+            .slice(0, -1) // Trim ')'
+            .split(',') // Get array of channel string values
+            .map((channel) => parseInt(channel, 10)) // Get array of channel values
+        ;
+    }
+    else {
+        return value;
+    }
+};
+
+function getStyle(props = Object.keys(this.style)) {
     const style = {};
 
-    Object.keys(this.style).map((key) => {
-        const value = this.style[key];
-
-        if (PX_PROPS.includes(key)) {
-            style[key] = parseInt(value, 10);
-        }
-        else if (COLOR_PROPS.includes(key)) {
-            style[key] = value
-                .slice(4) // Trim 'rgb('
-                .slice(0, -1) // Trim ')'
-                .split(',') // Get array of channel string values
-                .map((channel) => parseInt(channel, 10)) // Get array of channel values
-            ;
-        }
-        else {
-            style[key] = value;
-        }
+    props.map((key) => {
+        style[key] = getPropStyle(key, this.style[key]);
     });
 
     return style;

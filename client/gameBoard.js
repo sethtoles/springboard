@@ -7,7 +7,7 @@ import { makeTethering } from './tethering.js';
 
 function createTile(row, column) {
     const { root, tileStyle } = this;
-    const { top, left } = root.getStyle();
+    const { top, left } = root.getStyle([ 'top', 'left' ]);
     const { width, height } = tileStyle;
 
     const tile = createBaseElement({
@@ -60,7 +60,7 @@ function addColumn() {
     }
 
     const { width } = this.tileStyle;
-    const { left: handleLeft } = this.handle.getStyle();
+    const { left: handleLeft } = this.handle.getStyle([ 'left' ]);
 
     this.handle.move({ left: handleLeft + width });
 
@@ -68,7 +68,7 @@ function addColumn() {
 }
 
 const createHandle = ({ root, columns, tileStyle }) => {
-    const { top, left } = root.getStyle();
+    const { top, left } = root.getStyle([ 'top', 'left' ]);
     const { width, height } = tileStyle;
 
     const handle = createBaseElement({
@@ -92,7 +92,7 @@ const createHandle = ({ root, columns, tileStyle }) => {
 
 const createBoardControls = (board) => {
     const { root, handle, columns, tileStyle } = board;
-    const { top, left } = root.getStyle();
+    const { top, left } = root.getStyle([ 'top', 'left' ]);
     const { width, height } = tileStyle;
 
     const baseButtonStyle = {

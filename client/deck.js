@@ -6,7 +6,7 @@ function createPiece(options = {}) {
         style = {},
     } = options;
 
-    const { top, left, width } = this.getStyle();
+    const { top, left, width } = this.getStyle([ 'top', 'left', 'width' ]);
     const piece = createBaseElement({
         ...options,
         style: {

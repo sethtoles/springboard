@@ -1,9 +1,9 @@
 function tether(target) {
-    const { top, left } = this.getStyle();
+    const { top, left } = this.getStyle([ 'top', 'left' ]);
     const {
         top: targetTop,
         left: targetLeft,
-    } = target.getStyle();
+    } = target.getStyle([ 'top', 'left' ]);
 
     const offset = {
         top: targetTop - top,
@@ -26,10 +26,12 @@ const extendMove = (element) => {
     const baseMove = element.move;
 
     element.move = (...args) => {
-        const { top, left } = element.getStyle()
+        const { top, left } = element.getStyle([ 'top', 'left' ]);
 
+        // Move this element
         baseMove.apply(element, args);
 
+        // Move all its tethered children
         element.tethered.map(({ offset, target}) => {
             target.move({
                 top: top + offset.top,
