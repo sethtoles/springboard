@@ -20,7 +20,7 @@ function handleMouseMove({ clientX, clientY }) {
 
     if (element) {
         if (snapTo && !held[KEY.CTRL]) {
-            element.move(snapTo.getStyle([ 'top', 'left' ]));
+            element.move(snapTo.getBoundingClientRect());
         }
         else {
             const { top = 0, left = 0 } = element.dragOffset;

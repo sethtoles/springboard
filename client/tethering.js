@@ -1,3 +1,5 @@
+import { createBaseElement } from './baseElement.js';
+
 function tether(target) {
     const { top, left } = this.getStyle([ 'top', 'left' ]);
     const {
@@ -15,29 +17,21 @@ function tether(target) {
     }
 
     target.tetheredTo = this;
+    target.setStyle(offset);
 
-    this.tethered.push({
-        offset,
-        target,
-    });
+    this.tethered.push(target);
+    this.appendChild(target);
 }
 
 const extendMove = (element) => {
     const baseMove = element.move;
 
     element.move = (...args) => {
-        const { top, left } = element.getStyle([ 'top', 'left' ]);
-
         // Move this element
         baseMove.apply(element, args);
 
-        // Move all its tethered children
-        element.tethered.map(({ offset, target}) => {
-            target.move({
-                top: top + offset.top,
-                left: left + offset.left,
-            });
-        });
+        // Move its tethered root
+        element.tetherRoot.move(args);
     };
 };
 
@@ -45,17 +39,30 @@ const extendMove = (element) => {
 
 function untether(target) {
     const tetheredIndex = this.tethered
-        .findIndex((tetheredItem) => (tetheredItem.target === target))
+        .findIndex((tetheredItem) => (tetheredItem === target))
     ;
+
+    document.body.appendChild(target);
 
     this.tethered.splice(tetheredIndex, 1);
 }
 
 export const makeTethering = (element) => {
+    const { top, left } = element.getStyle([ 'top', 'left' ]);
+    const tetherRoot = createBaseElement({
+        style: {
+            width: 0,
+            height: 0,
+            top,
+            left,
+        },
+    });
+
     Object.assign(element, {
         tether,
         untether,
         tethered: [],
+        tetherRoot,
     });
 
     extendMove(element);
