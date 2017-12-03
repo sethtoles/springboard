@@ -25,6 +25,10 @@ function endDrag() {
 
     // Tether to the snap target
     if (snapTo && snapTo.tether) {
+        const { top, left } = snapTo.getStyle([ 'top', 'left' ]);
+
+        this.setStyle({ top, left });
+
         snapTo.tether(this);
     }
     else if (this.tetheredTo) {

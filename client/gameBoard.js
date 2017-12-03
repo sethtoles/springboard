@@ -91,12 +91,12 @@ const createHandle = ({ root, columns, tileStyle }) => {
 }
 
 const createBoardControls = (board) => {
-    const { root, handle, columns, tileStyle } = board;
-    const { top, left } = root.getStyle([ 'top', 'left' ]);
+    const { handle, tileStyle } = board;
+    const { top, left } = handle.getStyle([ 'top', 'left' ]);
     const { width, height } = tileStyle;
 
     const baseButtonStyle = {
-        left: left + (width * columns),
+        left,
         width,
         height,
         backgroundColor: [128],
