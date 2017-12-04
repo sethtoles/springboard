@@ -66,5 +66,5 @@ export const addListeners = () => {
     document.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('focus', clearHeld);
     document.addEventListener('blur', clearHeld);
-    document.addEventListener('contextmenu', handleContextMenu);
+    // document.addEventListener('contextmenu', handleContextMenu);
 };

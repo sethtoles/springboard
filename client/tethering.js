@@ -20,7 +20,7 @@ function tether(target) {
     target.setStyle(offset);
 
     this.tethered.push(target);
-    this.appendChild(target);
+    this.tetherRoot.appendChild(target);
 }
 
 const extendMove = (element) => {
@@ -31,7 +31,7 @@ const extendMove = (element) => {
         baseMove.apply(element, args);
 
         // Move its tethered root
-        element.tetherRoot.move(args);
+        element.tetherRoot.move(...args);
     };
 };
 

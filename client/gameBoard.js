@@ -6,8 +6,8 @@ import { makeDraggable } from './dragging.js';
 import { makeTethering } from './tethering.js';
 
 function createTile(row, column) {
-    const { root, tileStyle } = this;
-    const { top, left } = root.getStyle([ 'top', 'left' ]);
+    const { handle, tileStyle } = this;
+    const { top, left } = handle.getStyle([ 'top', 'left' ]);
     const { width, height } = tileStyle;
 
     const tile = createBaseElement({
@@ -16,7 +16,7 @@ function createTile(row, column) {
             width: width,
             height: height,
             top: top + (row * height),
-            left: left + (column * width),
+            left: left - (column * width + width),
         },
     });
 
@@ -33,7 +33,7 @@ function createTile(row, column) {
     });
 
     makeTethering(tile);
-    root.tether(tile);
+    handle.tether(tile);
 
     return tile;
 }
