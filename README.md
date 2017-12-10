@@ -8,7 +8,7 @@ cd springboard
 npm install
 npm run dev
 ```
-Then navigate to `localhost:8080` in any browser with modern JavaScript functionality (only tested in Chrome with chrome://flags/#enable-javascript-harmony enabled).
+Then navigate to `localhost:8080/client/dist` in a relatively modern browser (tested in Firefox and Chrome)
 
 ## Features
 #### Board
@@ -27,7 +27,7 @@ Any draggable item can be deleted by dragging it over the red trash box.
 - [ ] Card piece type with hidden state
 - [ ] Configurable deck with customizable card list
 - [ ] Image upload for use on any game piece
-- [ ] < ES2015 support via build step
+- [x] < ES2015 support via build step
 - [ ] Hosted demo site
 - [ ] User login to save project state
 - [ ] Multiple user connections
