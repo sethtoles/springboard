@@ -6,16 +6,24 @@ A Platform for Launching a Board Game
 git clone git@github.com:sethtoles/springboard.git
 cd springboard
 npm install
-npm run dev
+npm run server-dev
 ```
+and in a seperate shell in the /springboard directory,
+```
+npm run build-dev
+```
+
 Then navigate to `localhost:8080/client/dist` in a relatively modern browser (tested in Firefox and Chrome)
 
 ## Features
 #### Board
-You get a grid. Enjoy it. You can make it taller or wider by clicking the double-arrow buttons on its right edge. You can drag it around the window with the handle icon.
+This is the awesome grid in the middle of the screen. You can make it taller or wider by clicking the double-arrow buttons on its right edge. You can drag it around the window with the handle icon.
 
-#### Game Pieces
-Click the deck (that's the ugly blue rectangle) to create a new game piece. Click and drag a piece to move it. By default the piece will snap to the board grid, but holding <kbd>ctrl</kbd> allows you to move the piece freely.
+#### Decks
+Create a deck with the selector at the top. Currently you can only make decks which create pieces. But hey, free pieces!
+
+### Game Pieces
+Once you've made a deck, which I know you've done, click it to create a new game piece. Click and drag a piece to move it. By default the piece will snap to any board grid, but holding <kbd>ctrl</kbd> allows you to move the piece freely.
 
 #### Trash
 Any draggable item can be deleted by dragging it over the red trash box.
