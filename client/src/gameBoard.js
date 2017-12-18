@@ -20,6 +20,8 @@ function createTile(row, column) {
         },
     });
 
+    tile.classList.add('board-tile');
+
     tile.addEventListener('mouseenter', () => {
         if (dragRoot.element !== tile) {
             dragRoot.snapTo = tile;
@@ -85,7 +87,7 @@ const createHandle = ({ root, columns, tileStyle }) => {
     makeTethering(handle);
     handle.tether(root);
 
-    handle.classList.add('fa', 'fa-arrows', 'fa-2x');
+    handle.classList.add('fa', 'fa-arrows', 'fa-2x', 'board-handle');
 
     return handle;
 }
@@ -109,7 +111,7 @@ const createBoardControls = (board) => {
         }
     });
     addRowButton.addEventListener('mousedown', () => board.addRow());
-    addRowButton.classList.add('fa', 'fa-angle-double-down');
+    addRowButton.classList.add('fa', 'fa-angle-double-down', 'board-button');
     handle.tether(addRowButton);
 
     const addColumnButton = createBaseElement({
@@ -119,7 +121,7 @@ const createBoardControls = (board) => {
         },
     });
     addColumnButton.addEventListener('mousedown', () => board.addColumn());
-    addColumnButton.classList.add('fa', 'fa-angle-double-right');
+    addColumnButton.classList.add('fa', 'fa-angle-double-right', 'board-button');
     handle.tether(addColumnButton);
 }
 
@@ -151,7 +153,7 @@ export const createBoard = (options = {}) => {
         },
     });
 
-    makeTethering(root);
+    root.classList.add('board-root')
 
     const handle = createHandle({
         root,

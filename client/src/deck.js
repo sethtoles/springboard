@@ -16,6 +16,8 @@ function createPiece(options = {}) {
         },
     });
 
+    piece.classList.add('piece');
+
     makeDraggable(piece);
 
     return piece;
@@ -29,6 +31,8 @@ export const createDeck = (options = {}) => {
             backgroundColor: [0, 0, 128],
         },
     });
+
+    deck.classList.add('deck');
 
     deck.addEventListener('mouseup', createPiece.bind(deck));
 

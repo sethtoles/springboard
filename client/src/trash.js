@@ -20,7 +20,7 @@ export const createTrash = () => {
 
     trash.addEventListener('mouseup', deleteItems);
 
-    trash.classList.add('fa', 'fa-trash', 'fa-2x')
+    trash.classList.add('fa', 'fa-trash', 'fa-2x', 'trash')
 
     return trash;
 };

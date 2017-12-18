@@ -58,6 +58,8 @@ export const makeTethering = (element) => {
         },
     });
 
+    tetherRoot.classList.add('tether-root');
+
     Object.assign(element, {
         tether,
         untether,
