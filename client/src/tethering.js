@@ -21,6 +21,15 @@ function tether(target) {
 
     this.tethered.push(target);
     this.tetherRoot.appendChild(target);
+
+    // If the item being tethered is also tethering,
+    // remove its tetherRoot and set it to this new one
+    if (target.tetherRoot) {
+        const oldRoot = target.tetherRoot;
+
+        target.tetherRoot = this.tetherRoot;
+        oldRoot.remove();
+    }
 }
 
 const extendMove = (element) => {
