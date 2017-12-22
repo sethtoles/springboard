@@ -5,20 +5,21 @@ function tether(target) {
     const {
         top: targetTop,
         left: targetLeft,
-    } = target.getStyle([ 'top', 'left' ]);
+    } = target.getBoundingClientRect();
 
     const offset = {
         top: targetTop - top,
         left: targetLeft - left,
     };
 
+    // Untether from other elements
     if (target.tetheredTo) {
         target.tetheredTo.untether(target);
     }
 
+    // Tether to this element
     target.tetheredTo = this;
     target.setStyle(offset);
-
     this.tethered.push(target);
     this.tetherRoot.appendChild(target);
 

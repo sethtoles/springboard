@@ -1,14 +1,11 @@
 const path = require('path');
 
 module.exports = {
+  devtool: 'inline-source-map',
   entry: './client/src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'client/dist'),
-  },
-  watch: true,
-  watchOptions: {
-    ignored: /node_modules/,
   },
   module: {
     rules: [
@@ -24,5 +21,9 @@ module.exports = {
         },
       },
     ],
+  },
+  watch: true,
+  watchOptions: {
+    ignored: /node_modules/,
   },
 };
