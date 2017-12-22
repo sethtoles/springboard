@@ -1,7 +1,7 @@
 import { createBaseElement } from './baseElement.js';
 
 function tether(target) {
-    const { top, left } = this.getStyle([ 'top', 'left' ]);
+    const { top, left } = this.tetherRoot.getStyle([ 'top', 'left' ]);
     const {
         top: targetTop,
         left: targetLeft,
