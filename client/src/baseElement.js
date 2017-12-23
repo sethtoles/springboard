@@ -66,7 +66,7 @@ function move({ top, left }) {
     Object.assign(this.style, {
         top: px(top),
         left: px(left),
-        zIndex: top,
+        zIndex: top + (this.layer * 1000),
     });
 
     return this;
@@ -81,6 +81,7 @@ function remove() {
 export const createBaseElement = (options = {}) => {
     const {
         parent = document.body,
+        layer = 0,
         style = {},
     } = options;
 

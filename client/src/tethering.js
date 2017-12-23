@@ -60,6 +60,7 @@ function untether(target) {
 export const makeTethering = (element) => {
     const { top, left } = element.getStyle([ 'top', 'left' ]);
     const tetherRoot = createBaseElement({
+        layer: 1,
         style: {
             width: 0,
             height: 0,
