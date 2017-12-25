@@ -13,8 +13,8 @@ function createTile(row, column) {
     const tile = createBaseElement({
         style: {
             ...this.tileStyle,
-            width: width,
-            height: height,
+            width,
+            height,
             top: top + (row * height),
             left: left - (column * width + width),
         },
@@ -64,7 +64,7 @@ function addColumn() {
     const { width } = this.tileStyle;
     const { left: handleLeft } = this.handle.getBoundingClientRect();
 
-    this.handle.move({ left: handleLeft + width });
+    this.handle.position({ left: handleLeft + width });
 
     this.columns++;
 }

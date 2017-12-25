@@ -24,17 +24,19 @@ function tether(target) {
         target.tetherRoot = this.tetherRoot;
         oldRoot.remove();
     }
+
+    return this;
 }
 
-const extendMove = (element) => {
-    const baseMove = element.move;
+const extendPosition = (element) => {
+    const basePosition = element.position;
 
-    element.move = (...args) => {
+    element.position = (...args) => {
         // Move this element
-        baseMove.apply(element, args);
+        basePosition.apply(element, args);
 
         // Move its tethered root
-        element.tetherRoot.move(...args);
+        element.tetherRoot.position(...args);
     };
 };
 
@@ -73,5 +75,5 @@ export const makeTethering = (element) => {
         tetherRoot,
     });
 
-    extendMove(element);
+    extendPosition(element);
 };
