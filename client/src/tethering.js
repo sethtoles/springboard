@@ -1,16 +1,7 @@
 import { createBaseElement } from './baseElement.js';
 
 function tether(target) {
-    const { top, left } = this.tetherRoot.getStyle([ 'top', 'left' ]);
-    const {
-        top: targetTop,
-        left: targetLeft,
-    } = target.getBoundingClientRect();
-
-    const offset = {
-        top: targetTop - top,
-        left: targetLeft - left,
-    };
+    const { top, left } = target.getBoundingClientRect();
 
     // Untether from other elements
     if (target.tetheredTo) {
@@ -19,9 +10,11 @@ function tether(target) {
 
     // Tether to this element
     target.tetheredTo = this;
-    target.setStyle(offset);
     this.tethered.push(target);
     this.tetherRoot.appendChild(target);
+
+    // Set the target's position within its new parent
+    target.position({ top, left });
 
     // If the item being tethered is also tethering,
     // remove its tetherRoot and set it to this new one
@@ -48,17 +41,19 @@ const extendMove = (element) => {
 // extend remove
 
 function untether(target) {
+    const { top, left } = target.getBoundingClientRect();
     const tetheredIndex = this.tethered
         .findIndex((tetheredItem) => (tetheredItem === target))
     ;
 
     document.body.appendChild(target);
+    target.position({ top, left });
 
     this.tethered.splice(tetheredIndex, 1);
 }
 
 export const makeTethering = (element) => {
-    const { top, left } = element.getStyle([ 'top', 'left' ]);
+    const { top, left } = element.getBoundingClientRect();
     const tetherRoot = createBaseElement({
         layer: 1,
         style: {

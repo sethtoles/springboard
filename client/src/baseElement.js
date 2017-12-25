@@ -4,15 +4,32 @@ import { BOARD_TILE_DIM } from './config.js';
 const PX_PROPS = [ 'top', 'left', 'width', 'height' ];
 const COLOR_PROPS = [ 'color', 'backgroundColor' ];
 
+function position({ top, left }) {
+    const {
+        top: parentTop,
+        left: parentLeft,
+    } = this.parentElement.getBoundingClientRect();
+
+    this.move({
+        top: top - parentTop,
+        left: left - parentLeft,
+    });
+}
+
 function setStyle(options = {}) {
     const {
-        top: thisTop,
-        left: thisLeft
+        top: styleTop,
+        left: styleLeft,
     } = this.getStyle([ 'top', 'left' ]);
 
     const {
-        top = thisTop,
-        left = thisLeft,
+        top: thisTop,
+        left: thisLeft
+    } = this.getBoundingClientRect();
+
+    const {
+        top = styleTop || thisTop,
+        left = styleLeft || thisLeft,
         ...otherOptions
     } = options;
 
@@ -89,6 +106,7 @@ export const createBaseElement = (options = {}) => {
 
     // Methods
     Object.assign(element, {
+        position,
         setStyle,
         getStyle,
         move,
