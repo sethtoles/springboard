@@ -20,7 +20,7 @@ Then navigate to `localhost:8080/client/dist` in a relatively modern browser (te
 This is the awesome grid in the middle of the screen. You can make it taller or wider by clicking the double-arrow buttons on its right edge. You can drag it around the window with the handle icon.
 
 #### Decks
-Create a deck with the selector at the top. Currently you can only make decks which create pieces. But hey, free pieces!
+Create a deck with the selector at the top. Currently you can only make decks which create pieces.
 
 ### Game Pieces
 Once you've made a deck, which I know you've done, click it to create a new game piece. Click and drag a piece to move it. By default the piece will snap to any board grid, but holding <kbd>ctrl</kbd> allows you to move the piece freely.
